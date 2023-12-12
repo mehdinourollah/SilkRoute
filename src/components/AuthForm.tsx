@@ -65,7 +65,7 @@ export const AuthForm = ({ className, ...props }: UserAuthFormProps) => {
         const calculatedPath = md5(uuid).slice(8, 16);
         const calculatedPath2 = md5(uuid).slice(0, 8);
 
-        const template = `vless://${uuid}@${namespace}-${calculatedPath2}.ir-thr-ba1.arvancaas.ir:443/?type=ws&encryption=none&path=/${calculatedPath}&security=tls&alpn=http%2F1.1&fp=chrome#SilkRoute`
+        const template = `vless://${uuid}@${namespace}-${calculatedPath2}.apps.ir-thr-ba1.arvancaas.ir:443/?type=ws&encryption=none&path=/${calculatedPath}&security=tls&alpn=http%2F1.1&fp=chrome#SilkRoute`
 
         return pods?.data.items.length > 0 ? <span>{template}</span> : ''
     }
