@@ -44,7 +44,7 @@ export const AuthForm = ({ className, ...props }: UserAuthFormProps) => {
         console.log("token", token.value)
 
 
-        if (!token) {
+        if (!localStorage.getItem("token")) {
             localStorage.setItem("token", (token as { value: string }).value)
         }
 
