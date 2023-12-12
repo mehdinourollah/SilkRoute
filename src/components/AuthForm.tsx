@@ -1,7 +1,7 @@
 
 import * as React from "react"
 
-import { cn, randomString } from "@/lib/utils"
+import { cn } from "@/lib/utils"
 import { Icons } from "@/components/ui/icons"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -9,7 +9,7 @@ import { Label } from "@/components/ui/label"
 import { useNamespaces } from "./hooks/useNamespaces"
 
 import { usePods } from "./hooks/usePods"
-import { useRunAll } from "./hooks/useRunAll"
+import { runAll } from "./hooks/runAll"
 import { useDeleteAll } from "./hooks/useDeleteAll"
 import { namespace, patchDeployment } from "@/lib/backend"
 import md5 from "md5"
@@ -18,12 +18,12 @@ interface UserAuthFormProps extends React.HTMLAttributes<HTMLDivElement> { }
 
 export const AuthForm = ({ className, ...props }: UserAuthFormProps) => {
 
-    const { fetchNS, isNSLoading, isNSError, namespaces } = useNamespaces()
-    const { fetchPods, isPodsError, isPodsLoading, pods } = usePods()
+    const { isNSLoading } = useNamespaces()
+    const { isPodsLoading, pods } = usePods()
     const localToken = localStorage.getItem("token") || ""
     async function onSubmit(event: React.SyntheticEvent) {
         event.preventDefault()
-        const { username, password } = event.target as typeof event.target & {
+        const { username } = event.target as typeof event.target & {
             username: { value: string }
             password: { value: string }
         }
@@ -45,11 +45,11 @@ export const AuthForm = ({ className, ...props }: UserAuthFormProps) => {
 
 
         if (!token) {
-            localStorage.setItem("token", token.value)
+            localStorage.setItem("token", (token as { value: string }).value)
         }
 
 
-        useRunAll()
+        runAll()
     }
 
 
