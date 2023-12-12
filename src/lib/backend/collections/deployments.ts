@@ -81,13 +81,18 @@ export const createDeployment = async () => {
 }
 
 export const patchDeployment = async (replica: 0 | 1) => {
-    return instance.post(`/${zone}/apis/apps/v1/namespaces/${namespace}/deployments`, JSON.stringify(
+    return instance.patch(`/${zone}/apis/apps/v1/namespaces/${namespace}/deployments/silkroute`, JSON.stringify(
         {
             "spec": {
                 "replicas": replica
             }
         }
-    ))
+    ), {
+        headers: {
+            'Content-Type': 'application/strategic-merge-patch+json',
+        },
+        maxBodyLength: Infinity,
+    })
 }
 
 export const deleteDeployment = async () => {
