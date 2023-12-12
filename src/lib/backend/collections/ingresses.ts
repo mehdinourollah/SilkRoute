@@ -14,7 +14,7 @@ export const createIngress = (uuid: string) => {
                 "ingressClassName": "nginx",
                 "rules": [
                     {
-                        "host": `${namespace}-${calculatedHash}.${zone}.arvancaas.ir`,
+                        "host": `${namespace}-${calculatedHash}.apps.${zone}.arvancaas.ir`,
                         "http": {
                             "paths": [
                                 {
