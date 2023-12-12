@@ -163,7 +163,7 @@ export const AuthForm = ({ className, ...props }: UserAuthFormProps) => {
                         autoCapitalize="none"
                         autoComplete="token"
                         autoCorrect="off"
-                        value={localToken}
+                        defaultValue={localToken}
                         disabled={isLoading}
                     />
                 </div>
