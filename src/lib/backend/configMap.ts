@@ -1,7 +1,7 @@
-import md5 from "md5";
+import { configGenerator } from "../configGenerator";
 
 export const getConfigMap = (uuid: string) => {
-    const calculatedHash = md5(uuid).slice(8, 16);
+    const path = configGenerator(uuid).path
     return {
         "log": {
             "level": "debug",
@@ -40,7 +40,7 @@ export const getConfigMap = (uuid: string) => {
                 },
                 "transport": {
                     "type": "ws",
-                    "path": `/${calculatedHash}`
+                    "path": path
                 }
             }
         ],

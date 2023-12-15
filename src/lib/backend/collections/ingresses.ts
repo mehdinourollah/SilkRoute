@@ -1,8 +1,8 @@
+import { configGenerator } from "@/lib/configGenerator";
 import { instance, namespace, zone } from ".."
-import md5 from "md5";
 
 export const createIngress = (uuid: string) => {
-    const calculatedHash = md5(uuid).slice(0, 8)
+    const hostname = configGenerator(uuid).hostname
     return instance.post(`/${zone}/apis/networking.k8s.io/v1/namespaces/${namespace}/ingresses`, JSON.stringify(
         {
             "apiVersion": "networking.k8s.io/v1",
@@ -14,7 +14,7 @@ export const createIngress = (uuid: string) => {
                 "ingressClassName": "nginx",
                 "rules": [
                     {
-                        "host": `${namespace}-${calculatedHash}.apps.${zone}.arvancaas.ir`,
+                        "host": hostname,
                         "http": {
                             "paths": [
                                 {

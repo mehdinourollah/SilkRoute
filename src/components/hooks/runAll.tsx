@@ -1,8 +1,10 @@
 import { createDeployment, createIngress, createService, namespace, patchDeployment } from "@/lib/backend"
-import { createConfigMap } from "@/lib/backend/collections/configmaps";
+import { createConfigMap, patchConfigMap } from "@/lib/backend/collections/configmaps";
 import { createNamespace, getAllNamespaces } from "@/lib/backend/collections/namespaces"
 import { TNameSpace } from "@/lib/types";
 
+// Todo: create check for each step (check if exists, if not create, if exists, patch)
+// Todo: use resourceVersion from configmap response for next steps
 
 export const runAll = async () => {
 
@@ -21,7 +23,9 @@ export const runAll = async () => {
             const cns_res = await createNamespace();
             console.log({ cns_res });
 
-            uuid = cns_res.data.items.find((item: TNameSpace) => item.metadata.name === namespace).metadata.uid;
+            uuid = cns_res.data.metadata.uid;
+            alert("uuid: " + uuid)
+            console.log({uuid})
             localStorage.setItem("uuid", uuid);
 
 
@@ -34,6 +38,12 @@ export const runAll = async () => {
     setTimeout(async () => {
 
 
+        try {
+            const res_configmap_create = await createConfigMap(uuid);
+            console.log({res_configmap_create})
+        } catch (e) {
+            console.log(e);
+        }
 
         try {
             await createService();
@@ -41,11 +51,7 @@ export const runAll = async () => {
             console.log(e);
         }
 
-        try {
-            await createConfigMap(uuid);
-        } catch (e) {
-            console.log(e);
-        }
+       
 
         try {
             await createDeployment();
@@ -68,5 +74,5 @@ export const runAll = async () => {
 
 
         console.log('Finished!');
-    }, 5000);
+    }, 1);
 }

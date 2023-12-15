@@ -32,5 +32,5 @@ export const useDeleteAll = async () => {
     } catch (e) {
         console.log(e);
     }
-    localStorage.removeItem("namespace");
+    localStorage.removeItem("uuid");
 }
