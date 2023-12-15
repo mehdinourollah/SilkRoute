@@ -1,5 +1,5 @@
 import { createDeployment, createIngress, createService, namespace, patchDeployment } from "@/lib/backend"
-import { createConfigMap, patchConfigMap } from "@/lib/backend/collections/configmaps";
+import { createConfigMap } from "@/lib/backend/collections/configmaps";
 import { createNamespace, getAllNamespaces } from "@/lib/backend/collections/namespaces"
 import { TNameSpace } from "@/lib/types";
 

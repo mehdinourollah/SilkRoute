@@ -11,11 +11,13 @@ import { useNamespaces } from "./hooks/useNamespaces"
 import { usePods } from "./hooks/usePods"
 import { runAll } from "./hooks/runAll"
 import { useDeleteAll } from "./hooks/useDeleteAll"
-import { namespace, patchDeployment } from "@/lib/backend"
-import md5 from "md5"
+import { patchDeployment } from "@/lib/backend"
+
 import { configGenerator } from "@/lib/configGenerator"
 
 interface UserAuthFormProps extends React.HTMLAttributes<HTMLDivElement> { }
+
+// Todo: extract components and move them out of this file
 
 export const AuthForm = ({ className, ...props }: UserAuthFormProps) => {
 
@@ -61,14 +63,7 @@ export const AuthForm = ({ className, ...props }: UserAuthFormProps) => {
     }
 
     const ShowConfig = () => {
-
         const uuid = localStorage.getItem("uuid") || "";
-        // const calculatedPath = md5(uuid).slice(8, 16);
-        // const calculatedPath2 = md5(uuid).slice(0, 8);
-
-        // const template = `vless://${uuid}@${namespace}-${calculatedPath2}.apps.ir-thr-ba1.arvancaas.ir:443/?type=ws&encryption=none&path=/${calculatedPath}&security=tls&alpn=http%2F1.1&fp=chrome#SilkRoute`
-
-        
         return pods?.data.items.length > 0 ? <span>{configGenerator(uuid).template}</span> : ''
     }
 
